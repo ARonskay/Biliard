@@ -10,7 +10,7 @@ pygame.display.set_caption("Bilard")
 rB = []  # promień piłek
 xB = []  # współrzędna X środków piłek
 yB = []  # współrzędna Y środków piłek
-aB = []  # kierunek ruchu kulki (od osi X zgodnie z ruchem wskazówek zegara)
+aB = []  # kierunek ruchu kulki (od osi X zgodnie z ruchem wskazówek zegara) =kąt
 vB = []  # prędkość
 mB = []  # masa
 cB = []  # kolor
@@ -103,7 +103,7 @@ yB[20] = 46
 yB[21] = 434
 yB[22] = 434
 
-vB[16] = 2.5
+vB[16] = 5.5
 aB[16] = (-math.pi / 2)
 
 vB[17] = 0
@@ -232,7 +232,7 @@ while run:
 
             if odl <= rB[i] + rB[j]:  # Kontrola zbliżenia kuli
                 # Następnie sprawdzamy, czy w wyniku kolejnego kroku odległość
-                # między kulami zmniejszyła się (wiersz 169-174), w przeciwnym razie kule rozlecą się.
+                # między kulami zmniejszyła się (wiersz 235-240), w przeciwnym razie kule rozlecą się.
                 # Jeśli ta kontrola nie zostanie przeprowadzona, kulki mogą się do siebie przyklejać.
                 xB1new = xB[i] + vB[i] * math.cos(aB[i])
                 yB1new = yB[i] + vB[i] * math.sin(aB[i])
@@ -289,10 +289,12 @@ while run:
 
     # wpadają do dziur
     for i in range(17, 23):
-        for j in range(1, 17):
-            odl1 = ((xB[i] - xB[j]) ** 2 + (yB[i] - yB[j]) ** 2) ** 0.5
+      for j in range(1, 17):
+           odl1 = ((xB[i] - xB[j]) ** 2 + (yB[i] - yB[j]) ** 2) ** 0.5
 
-            if odl1 <= rB[i] + rB[j]:
-                rB[j] = 0
+           if odl1 < rB[i] + rB[j]:
+                xB[j] =0
+                rB[j]=0
+                vB[j]=0
 
 pygame.quit()
